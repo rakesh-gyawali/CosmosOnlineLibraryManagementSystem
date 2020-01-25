@@ -11,7 +11,8 @@ namespace OnlineLibraryMVCApi
                         "~/Scripts/jquery-{version}.js",
                          "~/Scripts/bootstrap.js",
                          "~/Scripts/datatables/jquery.datatables.js",
-                         "~/Scripts/datatables/datatables.bootstrap.js"
+                         "~/Scripts/datatables/datatables.bootstrap.js",
+                         "~/scripts/bootbox.js"
                          ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -25,7 +26,7 @@ namespace OnlineLibraryMVCApi
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-simplex.css",
                       "~/Content/site.css",
-                      "~/Content/css/datatables.bootstrap.css"));
+                      "~/content/datatables/css/datatables.bootstrap.css"));
         }
     }
 }

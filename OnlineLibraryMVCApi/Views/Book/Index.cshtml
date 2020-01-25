@@ -4,11 +4,95 @@
 }
 
 <h2>Books</h2>
-<table>
-    <thead>ISBN</thead>
-    <thead>Book Name</thead>
-    <thead>Category</thead>
-    <thead>Author</thead>
-    <thead>Publication</thead>
-    <thead>Page Number</thead>
+<table id="bookTable" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Book Name</th>
+            <th>ISBN</th>
+            <th>Category</th>
+            <th>Author Firstname</th>
+            <th>Author Lastname</th>
+            <th>Publication</th>
+            <th>Page Number</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
 </table>
+
+@section  scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $('#bookTable').DataTable({
+                ajax: {
+                    url: "/api/books",
+                    dataSrc: ""
+                },
+                columns: [
+
+                    {
+                        data: "name"
+                        //render: function (data, type, book) {
+                        //    return "<a href='/book/edit" + book.id + "'>" + "</a>";
+                        //}
+                    },
+                    {
+                        data: "isbn"
+                    },
+                    {
+                        data: "category.name"
+                    },
+                    {
+                        data: "author.firstName"
+                        //render: function (data, type, book) {
+                        //     return "<a href='/Author/edit" + book.id + "'>" + "</a>";
+                        //}
+                    },
+                    {
+                        data: "author.lastName"
+                        //render: function (data, type, book) {
+                        //     return "<a href='/Author/edit" + book.id + "'>" + "</a>";
+                        //}
+                    },
+                    {
+                        data: "publication.name"
+                        //render: function (data, type, book) {
+                        //     return "<a href='/Author/edit" + book.id + "'>" + "</a>";
+                        //}
+                    },
+                    {
+                        data: "totalPage"
+                        //render: function (data, type, book) {
+                        //     return "<a href='/Author/edit" + book.id + "'>" + "</a>";
+                        //}
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class = 'btn-link js-delete' data-book-id = " + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $('#bookTable').on("click", ".js-delete", function myfunction() {
+                var button = $(this);
+                bootbox.confirm("Are you sure want ot delte this bood?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "api/books/" + button.attr("data-book-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+}
