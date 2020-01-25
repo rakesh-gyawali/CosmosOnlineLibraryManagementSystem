@@ -37,19 +37,21 @@ namespace OnlineLibraryMVCApi.Controllers.Api
                 .Include(b => b.Author).Include(b => b.Publication)
                 .Include(b => b.Category).SingleOrDefault(b => b.Id == id);
 
-            //var bookDto = Mapper.Map<Book, BookDto>(book);
-            //var bookDto = new BookDto
-            //{
-            //    Id = book.Id,
-            //    Isbn = book.Isbn,
-            //    Name = book.Name,
-            //    AuthorId = book.AuthorId,
-            //    PublicationId = book.PublicationId,
-            //    CategoryId = book.CategoryId,
-            //    TotalPage = book.TotalPage
-            //};
+            var bookDto = new BookDto
+            {
+                Id = book.Id,
+                Isbn = book.Isbn,
+                Name = book.Name,
+                AuthorId = book.AuthorId,
+                PublicationId = book.PublicationId,
+                CategoryId = book.CategoryId,
+                TotalPage = book.TotalPage,
+                Publication = book.Publication,
+                Author = book.Author,
+                Category = book.Category,
+            };
 
-            return Ok(book);
+            return Ok(bookDto);
         }
 
         // POST /api/books/Id
@@ -58,7 +60,6 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         {
             try
             {
-                //var book = Mapper.Map<BookDto, Book>(bookDto); //_context.Books.Add(book); //_context.SaveChanges();  //bookDto.Id = book.Id;
                 var book = new Book
                 {
                     Isbn = bookDto.Isbn,
@@ -66,7 +67,10 @@ namespace OnlineLibraryMVCApi.Controllers.Api
                     AuthorId = bookDto.AuthorId,
                     PublicationId = bookDto.PublicationId,
                     CategoryId = bookDto.CategoryId,
-                    TotalPage = bookDto.TotalPage
+                    TotalPage = bookDto.TotalPage,
+                    Publication = bookDto.Publication,
+                    Author = bookDto.Author,
+                    Category = bookDto.Category
                 };
 
                 bookDto.Id = book.Id;
