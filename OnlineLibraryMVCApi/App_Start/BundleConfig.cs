@@ -12,7 +12,8 @@ namespace OnlineLibraryMVCApi
                          "~/Scripts/bootstrap.js",
                          "~/Scripts/datatables/jquery.datatables.js",
                          "~/Scripts/datatables/datatables.bootstrap.js",
-                         "~/scripts/bootbox.js"
+                         "~/scripts/bootbox.js",
+                         "~/scripts/typeahead.bundle.js"
                          ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

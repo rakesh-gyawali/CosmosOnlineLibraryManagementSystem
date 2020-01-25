@@ -9,5 +9,10 @@ namespace OnlineLibraryMVCApi.Controllers
         {
             return View();
         }
+
+        public ActionResult NewBook()
+        {
+            return View("BookForm");
+        }
     }
 }
