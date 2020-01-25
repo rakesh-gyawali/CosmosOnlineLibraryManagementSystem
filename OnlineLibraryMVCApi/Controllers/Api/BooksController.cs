@@ -107,10 +107,7 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         [HttpDelete]
         public void DeleteBook(int id)
         {
-            var book = _context.Books
-                .Include(b => b.Author).Include(b => b.Publication)
-                .Include(b => b.Category).SingleOrDefault(b => b.Id == id);
-
+            var book = _context.Books.SingleOrDefault(b => b.Id == id);
             _context.Books.Remove(book);
             _context.SaveChanges();
         }
