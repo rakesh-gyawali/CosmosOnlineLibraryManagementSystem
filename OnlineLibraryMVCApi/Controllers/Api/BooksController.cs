@@ -108,6 +108,7 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         public void DeleteBook(int id)
         {
             var book = _context.Books.SingleOrDefault(b => b.Id == id);
+
             _context.Books.Remove(book);
             _context.SaveChanges();
         }
