@@ -4,14 +4,17 @@
 }
 
 <h2>Books</h2>
+<div class="form-group">
+    <button class="btn btn-primary">New Book</button>
+</div>
 <table id="bookTable" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>Book Name</th>
             <th>ISBN</th>
             <th>Category</th>
-            <th>Author Firstname</th>
-            <th>Author Lastname</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
             <th>Publication</th>
             <th>Page Number</th>
             <th>Delete</th>
@@ -32,10 +35,10 @@
                 columns: [
 
                     {
-                        data: "name",
-                        render: function (data, type, book) {
-                            return "<a href='/book/" + book.id + "'>" + "</a>";
-                        }
+                        data: "name"
+                        //render: function (data, type, book) {
+                        //    return "<a href='/book/" + book.id + "'>" + "</a>";
+                        //}
                     },
                     {
                         data: "isbn"

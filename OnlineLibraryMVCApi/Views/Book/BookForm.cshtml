@@ -2,35 +2,82 @@
     ViewBag.Title = "NewBook";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Styles.Render("~/content/style.css")
 <h2>Book Form</h2>
+<div class="wrapper">
+    <div class="forms col-sm-8">
+        <div class="row">
+            <div class="form-group col-sm-4 form-right">
+                <label class="">Book Name *</label>
+                <input type="text" value="" class="form-control txtBookName" placeholder="Enter book name." />
+            </div>
+            <div class="form-group col-sm-4 form-left">
+                <label class="">Publication *</label>
+                <div class="">
+                    <input type="text" value="" class="form-control" placeholder="Enter publication." />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4 form-left">
+                <label class="">ISBN *</label>
+                <div class="">
+                    <input type="text" value="" class="form-control" placeholder="Enter ISBN." />
+                </div>
+            </div>
+            <div class="form-group col-sm-4 form-right">
+                <label class="">Category *</label>
+                <div class="">
+                    <input type="text" value="" class="form-control" placeholder="Enter category." />
+                </div>
+            </div>
+        </div>
 
-<label>Book Name</label>
-<input type="text" class="form-control" placeholder="Enter book name." />
-<label>ISBN</label>
-<input type="text" value="" class="form-control" placeholder="Enter ISBN." />
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label class="">Author First Name *</label>
+                <div class="">
+                    <input type="text" value="" class="form-control" placeholder="Enter first name." />
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label class="">Author Last Name *</label>
+                <div class="">
+                    <input type="text" value="" class="form-control" placeholder="Enter last name." />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label class="">Total Page</label>
+                <div class="">
+                    <input type="text" value="" class="form-control" placeholder="Enter total page of book." />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <button class="btn btn-success">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="form-group">
-    <label>Category</label>
-    <input type="text" value="" class="form-control" placeholder="Enter category." />
-</div>
-<div class="form-group">
-    <label>Author First Name</label>
-    <input type="text" value="" class="form-control" placeholder="Enter First name." />
-</div>
-<div class="form-group">
-    <label>Author Last Name</label>
-    <input type="text" value="" class="form-control" placeholder="Enter last name." />
+<div class="wrapper col-sm-4">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Notes:</h3>
+            </div>
+            <div class="panel-body">
+                <p>1. All fields must be provided except Total Page.</p>
+                <p>2. Publication, Author and Category must be chosen from auto-complete.</p>
+                <p>3. If you can't get value from auto-complete, it must be inserted first from other form.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="form-group">
-    <label>Publication</label>
-    <input type="text" value="" class="form-control" placeholder="Enter publication." />
-</div>
-<div class="form-group">
-    <label>Total Page</label>
-    <input type="text" value="" class="form-control" placeholder="Enter total page of book." />
-</div>
 @*@section scripts
     {
         <script>

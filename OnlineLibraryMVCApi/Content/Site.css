@@ -33,3 +33,11 @@ textarea {
     .navbar-default .navbar-brand:hover {
         color: #777777;
     }
+
+div.vr {
+    border-right: 1px solid #000 !important;
+}
+
+h3 {
+    color: deeppink;
+}
