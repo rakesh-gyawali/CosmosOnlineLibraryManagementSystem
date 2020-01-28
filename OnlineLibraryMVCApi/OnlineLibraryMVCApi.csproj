@@ -213,6 +213,14 @@
     <Compile Include="Migrations\202001230322153_AuthorAttributeAddingFNameAndLName.Designer.cs">
       <DependentUpon>202001230322153_AuthorAttributeAddingFNameAndLName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001280745384_Added_DateAdded_toBook.cs" />
+    <Compile Include="Migrations\202001280745384_Added_DateAdded_toBook.Designer.cs">
+      <DependentUpon>202001280745384_Added_DateAdded_toBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001280957078_DateAdded.cs" />
+    <Compile Include="Migrations\202001280957078_DateAdded.Designer.cs">
+      <DependentUpon>202001280957078_DateAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -223,6 +231,7 @@
     <Compile Include="Models\Publication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BookFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-simplex.css" />
@@ -505,6 +514,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001230322153_AuthorAttributeAddingFNameAndLName.resx">
       <DependentUpon>202001230322153_AuthorAttributeAddingFNameAndLName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001280745384_Added_DateAdded_toBook.resx">
+      <DependentUpon>202001280745384_Added_DateAdded_toBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001280957078_DateAdded.resx">
+      <DependentUpon>202001280957078_DateAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

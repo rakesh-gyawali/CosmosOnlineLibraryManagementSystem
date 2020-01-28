@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using OnlineLibraryMVCApi.Models;
 
-namespace OnlineLibraryMVCApi.Models
+namespace OnlineLibraryMVCApi.ViewModels
 {
-    public class Book
+    public class BookFormViewModel
     {
         public int Id { get; set; }
 
@@ -32,7 +36,5 @@ namespace OnlineLibraryMVCApi.Models
 
         [Display(Name = "No. of Page")]
         public int? TotalPage { get; set; }
-
-        public DateTime DateAdded { get; set; }
     }
 }

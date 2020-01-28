@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  OnlineLibraryMVCApi.ViewModels.BookFormViewModel
+@{
     ViewBag.Title = "NewBook";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -6,84 +7,81 @@
 @Styles.Render("~/content/style.css")
 
 <h2>Book Form</h2>
-<div class="wrapper">
-    <div class="forms col-sm-8">
-        <div class="row">
-            <div class="form-group col-sm-6">
-                <label class="">Book Name *</label>
-                <input id="#bookName" type="text" value="" class="form-control txtBookName" required placeholder="Enter book name." />
-            </div>
-            <div class="form-group col-sm-6">
-                <label class="">Publication *</label>
-                <div class="">
-                    <input id="publication" type="text" value="" class="form-control" required placeholder="Enter publication." />
+@using (Html.BeginForm("Save", "Book"))
+{
+    <div class="wrapper">
+        <div class="forms col-sm-8">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(b => b.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(b => b.Publication.Name)
+                    @Html.TextBoxFor(b => b.Publication.Name, new { @id = "publication", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Publication.Name)
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-6">
-                <label class="">ISBN *</label>
-                <div class="">
-                    <input id="isbn" type="text" value="" class="form-control" placeholder="Enter ISBN." />
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(b => b.Isbn)
+                    @Html.TextBoxFor(b => b.Isbn, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Isbn)
+                </div>
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(b => b.TotalPage)
+                    @Html.TextBoxFor(b => b.TotalPage, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(b => b.TotalPage)
                 </div>
             </div>
-            <div class="form-group col-sm-6">
-                <label class="">Total Page</label>
-                <div class="">
-                    <input id="totalPage" type="text" value="" class="form-control" placeholder="Enter total page of book." />
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(b => b.Author.FirstName)
+                    @Html.TextBoxFor(b => b.Author.FirstName, new { @id = "fName", @class = "form-control" })
+                    @Html.ValidationMessageFor(b => b.Author.FirstName)
+                </div>
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(b => b.Author.LastName)
+                    @Html.TextBoxFor(b => b.Author.LastName, new { @id = "lName", @class = "form-control" })
+                    @Html.ValidationMessageFor(b => b.Author.LastName)
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-6">
-                <label class="">Author First Name *</label>
-                <div class="">
-                    <input id="fName" type="text" value="" class="form-control" placeholder="Enter first name." />
-                </div>
-            </div>
-            <div class="form-group col-sm-6">
-                <label class="">Author Last Name *</label>
-                <div class="">
-                    <input id="lName" type="text" value="" class="form-control" placeholder="Enter last name." />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div id="category-form-group" class="form-group col-sm-6 ">
-                <label class="">Category *</label>
-                <div class="">
-                    <input id="category" type="text" value="" class="form-control" placeholder="Enter category." />
-                </div>
-            </div>
-            <div class="form-group col-sm-6">
-                <label>Categories to be included:</label>
-                <ul id="categories" class="list-group">
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-6">
-                <button id="btnCancel" class="btn btn-info">Cancel</button>
-                <button id="btnSave" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="wrapper col-sm-4">
-    <div class="col-sm-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Notes:</h3>
+            <div class="row">
+                <div id="category-form-group" class="form-group col-sm-6">
+                    @Html.LabelFor(b => b.Category.Name)
+                    @Html.TextBoxFor(b => b.Category.Name, new { @id = "category", @class = "form-control" })
+                    @Html.ValidationMessageFor(b => b.Category.Name)
+                </div>
             </div>
-            <div class="panel-body">
-                <p>1. All fields must be provided except Total Page.</p>
-                <p>2. Publication, Author and Category must be chosen from auto-complete.</p>
-                <p>3. If you can't get value from auto-complete, it must be inserted first from other form.</p>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <button type="reset" id="btnCancel" class="btn btn-info">Cancel</button>
+                    <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    @Html.HiddenFor(m => m.Id)
+    @Html.AntiForgeryToken()
+
+    <div class="wrapper col-sm-4">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Notes:</h3>
+                </div>
+                <div class="panel-body">
+                    <p>1. All fields must be provided except Total Page.</p>
+                    <p>2. Publication, Author and Category must be chosen from auto-complete.</p>
+                    <p>3. If you can't get value from auto-complete, it must be inserted first from other form.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
 
 @section scripts
 {
@@ -95,8 +93,7 @@
             var vm = {
                 categoryIds: []
             };
-            var temp = null;
-            var val = null;
+
             //-----Publication-------
             var publications = new Bloodhound({
 
@@ -149,11 +146,6 @@
                 name: 'lastName',
                 display: 'lastName',
                 source: AuthorNames
-            }).on("typeahead:select", function (e, author) {
-                if (temp !== author.id)
-                    console.log("not valid");
-
-                //vm.authorId = author.id;
             });
 
             //-----Category-------
@@ -175,43 +167,6 @@
                 display: 'name',
                 source: categories,
                 limit: 3
-            }).on("typeahead:select", function (e, category) {
-                var index = 1;
-                $("#categories").append("<li id ='categories'class = 'list-group-item'>" + category.name + "</li>");
-
-                $("#category").typeahead("val", "");
-
-                vm.categoryIds.push(category.Id);
-            });
-
-            var validator = $('#btnSave').validate({
-
-                submitHandler: function () {
-                    $.ajax({
-                        url: "/api/books",
-                        method: "post",
-                        data: vm
-                    })
-                        .done(function () {
-                            toastr.success("Books successfully recorded.");
-                            $("#publication").typeahead("val", "");
-                            $("#fName").typeahead("val", "");
-                            $("#lName").typeahead("val", "");
-                            $("#category").typeahead("val", "");
-                            $("#categories").empty();
-
-                            vm = { categoryIds: [] };
-
-                            validator.resetForm();
-
-                        })
-                        .fail(function () {
-                            toastr.error("Something unexpected happened.");
-                        });
-
-                    return false;
-                }
-
             });
 
         });
