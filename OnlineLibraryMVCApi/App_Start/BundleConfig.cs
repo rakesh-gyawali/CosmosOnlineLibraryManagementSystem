@@ -13,7 +13,8 @@ namespace OnlineLibraryMVCApi
                          "~/Scripts/datatables/jquery.datatables.js",
                          "~/Scripts/datatables/datatables.bootstrap.js",
                          "~/scripts/bootbox.js",
-                         "~/scripts/typeahead.bundle.js"
+                         "~/scripts/typeahead.bundle.js",
+                         "~/scripts/toastr.js"
                          ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -27,6 +28,7 @@ namespace OnlineLibraryMVCApi
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-simplex.css",
                       "~/Content/site.css",
+                      "~/content/toastr.css",
                       "~/content/datatables/css/datatables.bootstrap.css"));
         }
     }

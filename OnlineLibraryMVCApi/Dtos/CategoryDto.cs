@@ -8,6 +8,6 @@ namespace OnlineLibraryMVCApi.Dtos
     public class CategoryDto
     {
         public byte Id { get; set; }
-        public byte Name { get; set; }
+        public string Name { get; set; }
     }
 }

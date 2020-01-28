@@ -2,62 +2,69 @@
     ViewBag.Title = "NewBook";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @Styles.Render("~/content/style.css")
+
 <h2>Book Form</h2>
 <div class="wrapper">
     <div class="forms col-sm-8">
         <div class="row">
-            <div class="form-group col-sm-4 form-right">
+            <div class="form-group col-sm-6">
                 <label class="">Book Name *</label>
-                <input type="text" value="" class="form-control txtBookName" placeholder="Enter book name." />
+                <input id="#bookName" type="text" value="" class="form-control txtBookName" required placeholder="Enter book name." />
             </div>
-            <div class="form-group col-sm-4 form-left">
+            <div class="form-group col-sm-6">
                 <label class="">Publication *</label>
                 <div class="">
-                    <input type="text" value="" class="form-control" placeholder="Enter publication." />
+                    <input id="publication" type="text" value="" class="form-control" required placeholder="Enter publication." />
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-4 form-left">
+            <div class="form-group col-sm-6">
                 <label class="">ISBN *</label>
                 <div class="">
-                    <input type="text" value="" class="form-control" placeholder="Enter ISBN." />
+                    <input id="isbn" type="text" value="" class="form-control" placeholder="Enter ISBN." />
                 </div>
             </div>
-            <div class="form-group col-sm-4 form-right">
-                <label class="">Category *</label>
-                <div class="">
-                    <input type="text" value="" class="form-control" placeholder="Enter category." />
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col-sm-4">
-                <label class="">Author First Name *</label>
-                <div class="">
-                    <input type="text" value="" class="form-control" placeholder="Enter first name." />
-                </div>
-            </div>
-            <div class="form-group col-sm-4">
-                <label class="">Author Last Name *</label>
-                <div class="">
-                    <input type="text" value="" class="form-control" placeholder="Enter last name." />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-4">
+            <div class="form-group col-sm-6">
                 <label class="">Total Page</label>
                 <div class="">
-                    <input type="text" value="" class="form-control" placeholder="Enter total page of book." />
+                    <input id="totalPage" type="text" value="" class="form-control" placeholder="Enter total page of book." />
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-sm-4">
-                <button class="btn btn-success">Send</button>
+            <div class="form-group col-sm-6">
+                <label class="">Author First Name *</label>
+                <div class="">
+                    <input id="fName" type="text" value="" class="form-control" placeholder="Enter first name." />
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="">Author Last Name *</label>
+                <div class="">
+                    <input id="lName" type="text" value="" class="form-control" placeholder="Enter last name." />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="category-form-group" class="form-group col-sm-6 ">
+                <label class="">Category *</label>
+                <div class="">
+                    <input id="category" type="text" value="" class="form-control" placeholder="Enter category." />
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label>Categories to be included:</label>
+                <ul id="categories" class="list-group">
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <button id="btnCancel" class="btn btn-info">Cancel</button>
+                <button id="btnSave" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -78,24 +85,135 @@
     </div>
 </div>
 
-@*@section scripts
-    {
-        <script>
-            $(document).ready(function () {
-                var book = new Bloodhound({
-                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('isbn'),
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    remote: {
-                        url: '../data/films/queries/%QUERY.json',
-                        wildcard: '%QUERY'
-                    }
-                });
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
 
-                $('#remote .typeahead').typeahead(null, {
-                    name: 'best-pictures',
-                    display: 'value',
-                    source: book
-                });
+    <script>
+
+        $(document).ready(function () {
+            var vm = {
+                categoryIds: []
+            };
+            var temp = null;
+            var val = null;
+            //-----Publication-------
+            var publications = new Bloodhound({
+
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/publications?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
             });
-        </script>
-    }*@
+
+            $('#publication').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                name: 'publications',
+                display: 'name',
+                source: publications
+            }).on("typeahead:select", function (e, publication) {
+                vm.publicationId = publication.id;
+            });
+
+            //-----Authors-------
+            var AuthorNames = new Bloodhound({
+
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/authors?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#fName').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                name: 'firstName',
+                display: 'firstName',
+                source: AuthorNames
+            }).on("typeahead:select", function (e, author) {
+                vm.authorId = author.id;
+                temp = author.id;
+            });
+
+            $('#lName').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                name: 'lastName',
+                display: 'lastName',
+                source: AuthorNames
+            }).on("typeahead:select", function (e, author) {
+                if (temp !== author.id)
+                    console.log("not valid");
+
+                //vm.authorId = author.id;
+            });
+
+            //-----Category-------
+            var categories = new Bloodhound({
+
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/categories?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#category').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                name: 'categories',
+                display: 'name',
+                source: categories,
+                limit: 3
+            }).on("typeahead:select", function (e, category) {
+                var index = 1;
+                $("#categories").append("<li id ='categories'class = 'list-group-item'>" + category.name + "</li>");
+
+                $("#category").typeahead("val", "");
+
+                vm.categoryIds.push(category.Id);
+            });
+
+            var validator = $('#btnSave').validate({
+
+                submitHandler: function () {
+                    $.ajax({
+                        url: "/api/books",
+                        method: "post",
+                        data: vm
+                    })
+                        .done(function () {
+                            toastr.success("Books successfully recorded.");
+                            $("#publication").typeahead("val", "");
+                            $("#fName").typeahead("val", "");
+                            $("#lName").typeahead("val", "");
+                            $("#category").typeahead("val", "");
+                            $("#categories").empty();
+
+                            vm = { categoryIds: [] };
+
+                            validator.resetForm();
+
+                        })
+                        .fail(function () {
+                            toastr.error("Something unexpected happened.");
+                        });
+
+                    return false;
+                }
+
+            });
+
+        });
+    </script>
+}
