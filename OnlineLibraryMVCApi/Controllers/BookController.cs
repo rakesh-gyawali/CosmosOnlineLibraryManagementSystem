@@ -32,7 +32,8 @@ namespace OnlineLibraryMVCApi.Controllers
 
         public ActionResult New()
         {
-            return View("BookForm");
+            var viewModel = new BookFormViewModel(); // value of int will be initialized.
+            return View("BookForm", viewModel);
         }
 
         [HttpPost]
@@ -43,15 +44,45 @@ namespace OnlineLibraryMVCApi.Controllers
             book.PublicationId = _context.Publications.Where(n => n.Name == book.Publication.Name).SingleOrDefault().Id;
             book.AuthorId = _context.Authors.Where(n => n.Name == book.Author.Name).SingleOrDefault().Id;
 
-            book.DateAdded = DateTime.Now;
-
             book.Author = null;
             book.Category = null;
             book.Publication = null;
 
-            _context.Books.Add(book);
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new BookFormViewModel(book);
+                return View("BookForm", viewModel);
+            }
+
+            if (book.Id != 0)
+            {
+                var bookInDb = _context.Books.Single(b => b.Id == book.Id);
+
+                bookInDb.Isbn = book.Isbn;
+                bookInDb.Name = book.Name;
+                bookInDb.AuthorId = book.AuthorId;
+                bookInDb.PublicationId = book.PublicationId;
+                bookInDb.CategoryId = book.CategoryId;
+                bookInDb.TotalPage = book.TotalPage;
+            }
+            else
+            {
+                book.DateAdded = DateTime.Now;
+                _context.Books.Add(book);
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Book");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var book = _context.Books.Include(b => b.Author).Include(b => b.Publication).Include(b => b.Category).SingleOrDefault(b => b.Id == id);
+            if (book == null)
+                return HttpNotFound();
+
+            var viewModel = new BookFormViewModel(book);
+            return View("BookForm", viewModel);
         }
     }
 }

@@ -36,5 +36,24 @@ namespace OnlineLibraryMVCApi.ViewModels
 
         [Display(Name = "No. of Page")]
         public int? TotalPage { get; set; }
+
+        public BookFormViewModel()
+        {
+            Id = 0;
+        }
+
+        public BookFormViewModel(Book book)
+        {
+            Id = book.Id;
+            Isbn = book.Isbn;
+            Name = book.Name;
+            AuthorId = book.AuthorId;
+            Author = book.Author;
+            Publication = book.Publication;
+            Category = book.Category;
+            PublicationId = book.PublicationId;
+            CategoryId = book.CategoryId;
+            TotalPage = book.TotalPage;
+        }
     }
 }

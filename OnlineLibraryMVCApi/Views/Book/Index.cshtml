@@ -34,10 +34,10 @@
                 columns: [
 
                     {
-                        data: "name"
-                        //render: function (data, type, book) {
-                        //    return "<a href='/book/" + book.id + "'>" + "</a>";
-                        //}
+                        data: "name",
+                        render: function (data, type, book) {
+                            return "<a href='/book/edit/" + book.id + "'>" + book.name + "</a>";
+                        }
                     },
                     {
                         data: "isbn"

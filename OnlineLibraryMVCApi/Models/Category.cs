@@ -7,6 +7,7 @@ namespace OnlineLibraryMVCApi.Models
         public byte Id { get; set; }
 
         [Display(Name = "Category")]
+        [Required]
         public string Name { get; set; }
     }
 }
