@@ -221,6 +221,10 @@
     <Compile Include="Migrations\202001280957078_DateAdded.Designer.cs">
       <DependentUpon>202001280957078_DateAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001290657260_Removed_FirstAndLastName_FromAuthor.cs" />
+    <Compile Include="Migrations\202001290657260_Removed_FirstAndLastName_FromAuthor.Designer.cs">
+      <DependentUpon>202001290657260_Removed_FirstAndLastName_FromAuthor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Author.cs" />
@@ -520,6 +524,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001280957078_DateAdded.resx">
       <DependentUpon>202001280957078_DateAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001290657260_Removed_FirstAndLastName_FromAuthor.resx">
+      <DependentUpon>202001290657260_Removed_FirstAndLastName_FromAuthor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

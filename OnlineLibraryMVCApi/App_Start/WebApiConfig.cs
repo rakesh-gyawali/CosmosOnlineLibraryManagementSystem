@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Serialization;
 using System.Web.Http;
-using System.Xml;
 
 namespace OnlineLibraryMVCApi
 {

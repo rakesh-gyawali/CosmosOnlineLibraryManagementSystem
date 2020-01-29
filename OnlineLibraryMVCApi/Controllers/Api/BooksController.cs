@@ -20,14 +20,14 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         //Every action must return either IEnumerable or IQuryable.
 
         // GET /api/Books
-        public IHttpActionResult GetBook()
+        public IHttpActionResult GetBook(string query = null)
         {
-            var book = _context.Books
-               .Include(b => b.Author).Include(b => b.Publication)
-               .Include(b => b.Category).ToList()
-               .Select(Mapper.Map<Book, BookDto>);
+            var booksQuery = _context.Books.Include(b => b.Author).Include(b => b.Category).Include(b => b.Publication);
+            if (!String.IsNullOrWhiteSpace(query))
+                booksQuery = booksQuery.Where(c => c.Name.Contains(query));
 
-            return Ok(book);
+            var bookDto = booksQuery.ToList().Select(Mapper.Map<Book, BookDto>);
+            return Ok(bookDto);
         }
 
         // GET /api/Books/id

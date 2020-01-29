@@ -18,10 +18,14 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         }
 
         // GET /api/Publications
-        public IHttpActionResult GetPublication()
+        public IHttpActionResult GetPublication(string query = null)
         {
-            var pub = _context.Publications.Select(Mapper.Map<Publication, PublicationDto>);
-            return Ok(pub);
+            var pubQuery = _context.Publications.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query))
+                pubQuery = pubQuery.Where(p => p.Name.Contains(query));
+
+            var pubDto = pubQuery.Select(Mapper.Map<Publication, PublicationDto>);
+            return Ok(pubDto);
         }
 
         // GET /api/Publications/id

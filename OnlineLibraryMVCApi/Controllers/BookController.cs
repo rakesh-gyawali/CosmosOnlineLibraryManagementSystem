@@ -41,7 +41,7 @@ namespace OnlineLibraryMVCApi.Controllers
         {
             book.CategoryId = _context.Categories.Where(n => n.Name == book.Category.Name).SingleOrDefault().Id;
             book.PublicationId = _context.Publications.Where(n => n.Name == book.Publication.Name).SingleOrDefault().Id;
-            book.AuthorId = _context.Authors.Where(n => n.FirstName == book.Author.FirstName).SingleOrDefault().Id;
+            book.AuthorId = _context.Authors.Where(n => n.Name == book.Author.Name).SingleOrDefault().Id;
 
             book.DateAdded = DateTime.Now;
 

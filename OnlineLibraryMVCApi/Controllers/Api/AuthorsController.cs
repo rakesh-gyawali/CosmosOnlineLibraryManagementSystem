@@ -18,10 +18,16 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         }
 
         // GET /api/authors
-        public IHttpActionResult GetAuthor()
+        public IHttpActionResult GetAuthor(string query = null)
         {
-            var author = _context.Authors.Select(Mapper.Map<Author, AuthorDto>);
-            return Ok(author);
+            var authorsQuery = _context.Authors.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                authorsQuery = authorsQuery.Where(m => m.Name.Contains(query));
+            }
+
+            var authorDto = authorsQuery.Select(Mapper.Map<Author, AuthorDto>);
+            return Ok(authorDto);
         }
 
         // GET /api/authors/Id
@@ -30,8 +36,7 @@ namespace OnlineLibraryMVCApi.Controllers.Api
             var author = _context.Authors.SingleOrDefault(a => a.Id == id);
             var authorDto = new AuthorDto
             {
-                FirstName = author.FirstName,
-                LastName = author.LastName
+                Name = author.Name
             };
 
             return Ok(authorDto);
@@ -42,8 +47,7 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         {
             var author = new Author
             {
-                FirstName = authorDto.FirstName,
-                LastName = authorDto.LastName
+                Name = authorDto.Name
             };
 
             authorDto.Id = author.Id;
@@ -58,8 +62,7 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         {
             var author = _context.Authors.SingleOrDefault(a => a.Id == id);
 
-            author.FirstName = authorDto.FirstName;
-            author.LastName = authorDto.LastName;
+            author.Name = authorDto.Name;
 
             _context.SaveChanges();
         }

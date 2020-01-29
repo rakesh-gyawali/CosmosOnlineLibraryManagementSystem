@@ -37,28 +37,25 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm-6">
-                    @Html.LabelFor(b => b.Author.FirstName)
-                    @Html.TextBoxFor(b => b.Author.FirstName, new { @id = "fName", @class = "form-control" })
-                    @Html.ValidationMessageFor(b => b.Author.FirstName)
+                    @Html.LabelFor(b => b.Author.Name)
+                    @Html.TextBoxFor(b => b.Author.Name, new { @id = "author", @class = "form-control" })
+                    @Html.ValidationMessageFor(b => b.Author.Name)
                 </div>
                 <div class="form-group col-sm-6">
-                    @Html.LabelFor(b => b.Author.LastName)
-                    @Html.TextBoxFor(b => b.Author.LastName, new { @id = "lName", @class = "form-control" })
-                    @Html.ValidationMessageFor(b => b.Author.LastName)
-                </div>
-            </div>
-
-            <div class="row">
-                <div id="category-form-group" class="form-group col-sm-6">
                     @Html.LabelFor(b => b.Category.Name)
                     @Html.TextBoxFor(b => b.Category.Name, new { @id = "category", @class = "form-control" })
                     @Html.ValidationMessageFor(b => b.Category.Name)
                 </div>
             </div>
+
             <div class="row">
                 <div class="form-group col-sm-6">
-                    <button type="reset" id="btnCancel" class="btn btn-info">Cancel</button>
+                </div>
+
+                <div id="for-flex" class="form-group col-sm-6">
                     <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+
+                    <button type="reset" id="btnCancel" class="btn btn-info">Cancel</button>
                 </div>
             </div>
         </div>
@@ -73,9 +70,9 @@
                     <h3 class="panel-title">Notes:</h3>
                 </div>
                 <div class="panel-body">
-                    <p>1. All fields must be provided except Total Page.</p>
+                    <p>1. All fields must be provided except No. of Page.</p>
                     <p>2. Publication, Author and Category must be chosen from auto-complete.</p>
-                    <p>3. If you can't get value from auto-complete, it must be inserted first from other form.</p>
+                    <p>3. If you can't get value from auto-complete, its value must be inserted first.</p>
                 </div>
             </div>
         </div>
@@ -90,9 +87,6 @@
     <script>
 
         $(document).ready(function () {
-            var vm = {
-                categoryIds: []
-            };
 
             //-----Publication-------
             var publications = new Bloodhound({
@@ -112,12 +106,10 @@
                 name: 'publications',
                 display: 'name',
                 source: publications
-            }).on("typeahead:select", function (e, publication) {
-                vm.publicationId = publication.id;
             });
 
             //-----Authors-------
-            var AuthorNames = new Bloodhound({
+            var authorName = new Bloodhound({
 
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -127,25 +119,13 @@
                 }
             });
 
-            $('#fName').typeahead({
+            $('#author').typeahead({
                 minLength: 3,
                 highlight: true
             }, {
-                name: 'firstName',
-                display: 'firstName',
-                source: AuthorNames
-            }).on("typeahead:select", function (e, author) {
-                vm.authorId = author.id;
-                temp = author.id;
-            });
-
-            $('#lName').typeahead({
-                minLength: 3,
-                highlight: true
-            }, {
-                name: 'lastName',
-                display: 'lastName',
-                source: AuthorNames
+                name: 'authorName',
+                display: 'name',
+                source: authorName
             });
 
             //-----Category-------
@@ -166,7 +146,7 @@
                 name: 'categories',
                 display: 'name',
                 source: categories,
-                limit: 3
+
             });
 
         });

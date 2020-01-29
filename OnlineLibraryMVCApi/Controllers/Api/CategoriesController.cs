@@ -20,10 +20,15 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         }
 
         // GET /api/categories
-        public IHttpActionResult GetCategories()
+        public IHttpActionResult GetCategories(string query = null)
         {
-            var category = _context.Categories.Select(Mapper.Map<Category, CategoryDto>);
-            return Ok(category);
+            var categoriesQuery = _context.Categories.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query))
+                categoriesQuery = categoriesQuery.Where(c => c.Name.Contains(query));
+
+            var categoryDto = categoriesQuery.Select(Mapper.Map<Category, CategoryDto>);
+            return Ok(categoryDto);
         }
 
         // GET /api/Categories

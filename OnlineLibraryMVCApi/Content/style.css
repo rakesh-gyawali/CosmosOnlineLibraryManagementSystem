@@ -12,6 +12,7 @@
 #btnSave {
     padding-right: 50px;
     padding-left: 50px;
+    margin-right: 45px;
 }
 
 #btnCancel {
@@ -19,8 +20,10 @@
     padding-left: 25px;
 }
 
-#category-form-group {
-    margin-bottom: 99px;
+#for-flex {
+    display: flex;
+    justify-content: normal;
+    margin-top: 30px;
 }
 
 .typeahead {
