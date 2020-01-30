@@ -1,0 +1,72 @@
+﻿@model OnlineLibraryMVCApi.ViewModels.PublicationViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="form-group">
+    @Html.ActionLink("New Publication", "New", "Publication", null, new { @class = "btn btn-primary btnNew" })
+</div>
+<table id="publicationTable" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Publication Name</th>
+            <th>Address</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section  scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $('#publicationTable').DataTable({
+                ajax: {
+                    url: "/api/publications",
+                    dataSrc: ""
+                },
+                columns: [
+
+                    {
+                        data: "name",
+                        render: function (data, type, publication) {
+                            return "<a href='/publication/edit/" + publication.id + "'>" + publication.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "address"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class = 'btn-link js-delete' data-publication-id = " + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $('#publicationTable').on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure want to delete this publication?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "api/publications/" + button.attr("data-publication-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+}

@@ -36,7 +36,8 @@ namespace OnlineLibraryMVCApi.Controllers.Api
 
             var pubDto = new PublicationDto
             {
-                Name = pub.Name
+                Name = pub.Name,
+                Address = pub.Address
             };
             return Ok(pub);
         }
@@ -47,7 +48,8 @@ namespace OnlineLibraryMVCApi.Controllers.Api
         {
             var pub = new Publication
             {
-                Name = pubDto.Name
+                Name = pubDto.Name,
+                Address = pubDto.Address
             };
 
             pubDto.Id = pub.Id;
@@ -65,6 +67,7 @@ namespace OnlineLibraryMVCApi.Controllers.Api
             var pub = _context.Publications.SingleOrDefault(p => p.Id == id);
 
             pub.Name = pubDto.Name;
+            pub.Address = pubDto.Address;
 
             _context.SaveChanges();
         }
