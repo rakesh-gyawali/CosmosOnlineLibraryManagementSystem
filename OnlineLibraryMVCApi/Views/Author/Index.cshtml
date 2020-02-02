@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Authors</h2>
+<div class="form-group">
+    @Html.ActionLink("New Author", "New", "Author", null, new { @class = "btn btn-primary btnNew" })
+</div>
+<table id="authorTable" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Publication Name</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section  scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $('#authorTable').DataTable({
+                ajax: {
+                    url: "/api/authors",
+                    dataSrc: ""
+                },
+                columns: [
+
+                    {
+                        data: "name",
+                        render: function (data, type, author) {
+                            return "<a href='/author/edit/" + author.id + "'>" + author.name + "</a>";
+                        }
+                    },
+
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class = 'btn-link js-delete' data-author-id = " + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+            $('#authorTable').on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure want to delete this author?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "api/authors/" + button.attr("data-author-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+}

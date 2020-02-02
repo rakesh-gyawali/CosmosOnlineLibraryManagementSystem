@@ -186,7 +186,9 @@
     <Compile Include="Controllers\Api\BooksController.cs" />
     <Compile Include="Controllers\Api\CategoriesController.cs" />
     <Compile Include="Controllers\Api\PublicationsController.cs" />
+    <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
@@ -247,6 +249,7 @@
     <Compile Include="Models\Publication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AuthorFormViewModel.cs" />
     <Compile Include="ViewModels\BookFormViewModel.cs" />
     <Compile Include="ViewModels\PublicationViewModel.cs" />
   </ItemGroup>
@@ -502,10 +505,12 @@
     <Content Include="Views\Book\BookForm.cshtml" />
     <Content Include="Views\Publication\Index.cshtml" />
     <Content Include="Views\Publication\PublicationForm.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Author\Index.cshtml" />
+    <Content Include="Views\Author\AuthorForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

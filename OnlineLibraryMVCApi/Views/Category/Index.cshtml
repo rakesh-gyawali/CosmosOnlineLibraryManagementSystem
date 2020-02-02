@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Categories</h2>
+<div class="form-group  col-sm-7">
+    <table id="categoryTable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Category Name</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@section  scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $('#categoryTable').DataTable({
+                ajax: {
+                    url: "/api/categories",
+                    dataSrc: ""
+                },
+                columns: [
+
+                    {
+                        data: "name"
+                    }
+                ]
+            });
+
+        });
+    </script>
+}

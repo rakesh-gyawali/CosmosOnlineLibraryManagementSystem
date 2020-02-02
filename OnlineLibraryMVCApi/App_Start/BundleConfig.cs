@@ -29,7 +29,8 @@ namespace OnlineLibraryMVCApi
                       "~/Content/bootstrap-simplex.css",
                       "~/Content/site.css",
                       "~/content/toastr.css",
-                      "~/content/datatables/css/datatables.bootstrap.css"));
+                      "~/content/datatables/css/datatables.bootstrap.css",
+                      "~/content/style.css"));
         }
     }
 }
