@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group col-sm-6">
                     @Html.LabelFor(b => b.Publication.Name)
-                    @Html.TextBoxFor(b => b.Publication.Name, new { @id = "publication", @class = "form-control" })
+                    @Html.TextBoxFor(b => b.Publication.Name, new { @id = "publication", @class = "form-control", @data_rule_validpublication = "true" })
                     @Html.ValidationMessageFor(m => m.Publication.Name)
                 </div>
             </div>
@@ -36,12 +36,12 @@
             <div class="row">
                 <div class="form-group col-sm-6">
                     @Html.LabelFor(b => b.Author.Name)
-                    @Html.TextBoxFor(b => b.Author.Name, new { @id = "author", @class = "form-control" })
+                    @Html.TextBoxFor(b => b.Author.Name, new { @id = "author", @class = "form-control", @data_rule_validauthor = "true" })
                     @Html.ValidationMessageFor(b => b.Author.Name)
                 </div>
                 <div class="form-group col-sm-6">
                     @Html.LabelFor(b => b.Category.Name)
-                    @Html.TextBoxFor(b => b.Category.Name, new { @id = "category", @class = "form-control" })
+                    @Html.TextBoxFor(b => b.Category.Name, new { @id = "category", @class = "form-control", @data_rule_validcategory = "true" })
                     @Html.ValidationMessageFor(b => b.Category.Name)
                 </div>
             </div>
@@ -84,6 +84,7 @@
     <script>
 
         $(document).ready(function () {
+            var valid = {};
 
             //-----Publication-------
             var publications = new Bloodhound({
@@ -103,7 +104,13 @@
                 name: 'publications',
                 display: 'name',
                 source: publications
+            }).on("typeahead:select", function (e, publication) {
+                valid.publicationId = publication.id;
             });
+
+            $.validator.addMethod("validPublication", function () {
+                return valid.publicationId && valid.publicationId !== 0;
+            }, "Please select a valid publication.");
 
             //-----Authors-------
             var authorName = new Bloodhound({
@@ -123,7 +130,13 @@
                 name: 'authorName',
                 display: 'name',
                 source: authorName
+            }).on("typeahead:select", function (e, author) {
+                valid.authorId = author.id;
             });
+
+            $.validator.addMethod("validauthor", function () {
+                return valid.authorId && valid.authorId !== 0;
+            }, "Please select valid author.");
 
             //-----Category-------
             var categories = new Bloodhound({
@@ -144,7 +157,12 @@
                 display: 'name',
                 source: categories,
 
+            }).on("typeahead:select", function (e, category) {
+                valid.categoryId = category.id;
             });
+            $.validator.addMethod("validcategory", function () {
+                return valid.categoryId && valid.categoryId !== 0;
+            }, "Please select valid category.");
 
         });
     </script>

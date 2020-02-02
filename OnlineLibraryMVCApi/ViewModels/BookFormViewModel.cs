@@ -9,6 +9,7 @@ namespace OnlineLibraryMVCApi.ViewModels
 {
     public class BookFormViewModel
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
